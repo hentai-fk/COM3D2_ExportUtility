@@ -75,6 +75,7 @@ internal class Program
         string baseDirectory = ".";
         string outputDirectory = Path.Combine(baseDirectory, "OutputDirectory");
 
+        Console.WriteLine();
         Console.WriteLine("搜索目录: " + baseDirectory);
         Console.WriteLine("输出目录: " + outputDirectory);
 
@@ -95,34 +96,33 @@ internal class Program
             foreach (var item in list)
             {
                 var outputAbs = Path.Combine(outputRel, item);
-                var arcItemName = Encoding.Default.GetString(Encoding.UTF8.GetBytes(item));
 
                 if (configKS && outputAbs.EndsWith(".ks", StringComparison.OrdinalIgnoreCase))
                 {
                     Directory.CreateDirectory(Directory.GetParent(outputAbs)!.FullName);
-                    OutputKs(fs, arcItemName, outputAbs);
+                    OutputKs(fs, item, outputAbs);
                 }
                 else if (configNEI && outputAbs.EndsWith(".nei", StringComparison.OrdinalIgnoreCase))
                 {
                     Directory.CreateDirectory(Directory.GetParent(outputAbs)!.FullName);
                     outputAbs = outputAbs.Substring(0, outputAbs.Length - 4) + ".csv";
-                    OutputNei(fs, arcItemName, outputAbs);
+                    OutputNei(fs, item, outputAbs);
                 }
                 else if (configTEX && outputAbs.EndsWith(".tex", StringComparison.OrdinalIgnoreCase))
                 {
                     Directory.CreateDirectory(Directory.GetParent(outputAbs)!.FullName);
                     outputAbs = outputAbs.Substring(0, outputAbs.Length - 4) + ".png";
-                    OutputTex(fs, arcItemName, outputAbs);
+                    OutputTex(fs, item, outputAbs);
                 }
                 else if (configOGG && outputAbs.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase))
                 {
                     Directory.CreateDirectory(Directory.GetParent(outputAbs)!.FullName);
-                    OutputNei(fs, arcItemName, outputAbs);
+                    OutputNei(fs, item, outputAbs);
                 }
                 else if (configOther)
                 {
                     Directory.CreateDirectory(Directory.GetParent(outputAbs)!.FullName);
-                    OutputOther(fs, arcItemName, outputAbs);
+                    OutputOther(fs, item, outputAbs);
                 }
                 else
                 {
