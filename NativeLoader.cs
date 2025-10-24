@@ -13,8 +13,21 @@ namespace COM3D2_ExportUtility
     {
         private static string ExtractAndLoad(string name, byte[] source)
         {
-            string tempPath = Path.Combine(Path.GetTempPath(), name);
+            var directory = Path.GetTempFileName();
+            File.Delete(directory);
+            Directory.CreateDirectory(directory);
+            string tempPath = Path.Combine(directory, name);
             File.WriteAllBytes(tempPath, source);
+
+            AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+            {
+                try
+                {
+                    File.Delete(tempPath);
+                    Directory.Delete(directory);
+                }
+                catch { }
+            };
 
             // 手动加载这个 DLL
             IntPtr handle = LoadLibrary(tempPath);
