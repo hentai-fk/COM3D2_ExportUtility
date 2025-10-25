@@ -117,7 +117,7 @@ internal class Program
                 else if (configOGG && outputAbs.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase))
                 {
                     Directory.CreateDirectory(Directory.GetParent(outputAbs)!.FullName);
-                    OutputNei(fs, item, outputAbs);
+                    OutputOther(fs, item, outputAbs);
                 }
                 else if (configOther)
                 {
